@@ -1,0 +1,10 @@
+venv/
+app/venv/
+__pycache__/
+*.pyc
+.env
+app/.env
+global-bundle.pem
+app/global-bundle.pem
+.DS_Store
+*.pem

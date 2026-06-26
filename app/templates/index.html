@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudNotes — Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">CloudNotes</div>
+    <div class="nav-links">
+        <a href="/" class="active">Dashboard</a>
+        <a href="/search">Search</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <p class="eyebrow">Notes, kept plainly</p>
+    <h1>Your notebook</h1>
+    <p>Write a note, edit it in place, or remove it when you're done.</p>
+</div>
+
+<div class="container">
+
+    <div class="add-section">
+        <h2>New entry</h2>
+        <form method="POST" action="/add" class="note-form">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="content" placeholder="Write something..." required></textarea>
+            <button type="submit">Save note</button>
+        </form>
+    </div>
+
+    <div>
+        <div class="notes-header">
+            <h2>All notes</h2>
+            <span>{{ notes|length }} saved</span>
+        </div>
+
+        <div class="notes-grid">
+            {% for note in notes %}
+            <div class="note-card">
+                <form method="POST" action="/edit/{{ note.id }}">
+                    <input type="text" name="title" value="{{ note.title }}" required>
+                    <textarea name="content" required>{{ note.content }}</textarea>
+                    <div class="actions">
+                        <button type="submit" class="update-btn">Update</button>
+                        <a href="/delete/{{ note.id }}" class="delete-btn">Delete</a>
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="empty-box">
+                <h3>Nothing here yet</h3>
+                <p>Write your first note using the panel on the left.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

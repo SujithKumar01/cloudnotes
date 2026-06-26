@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudNotes — Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">CloudNotes</div>
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/search" class="active">Search</a>
+    </div>
+</nav>
+
+<div class="search-hero">
+    <p class="eyebrow">Find a note</p>
+    <h1>Search your notebook</h1>
+    <p>Matches titles and contents.</p>
+
+    <form method="GET" action="/search" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search notes..."
+            value="{{ query }}"
+            autofocus
+        >
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="results-container">
+
+    <div class="results-header">
+        <span>Results</span>
+        <span>{{ notes|length }} found</span>
+    </div>
+
+    {% if notes %}
+        {% for note in notes %}
+        <div class="result-card">
+            <h3>{{ note.title }}</h3>
+            <p>{{ note.content }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-search">
+            <div class="icon">No results</div>
+            <h3>Nothing matched "{{ query }}"</h3>
+            <p>Try a different word or check your spelling.</p>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
