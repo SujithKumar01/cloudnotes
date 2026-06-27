@@ -12,4 +12,4 @@ COPY . .
 EXPOSE 5000
 
 # Use gunicorn for production-style serving, not the Flask dev server
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "60", "app:app"]
